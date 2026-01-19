@@ -1,3 +1,4 @@
+using Microsoft.Extensions.FileProviders;
 using BookCart.DataAccess;
 using BookCart.Interfaces;
 using BookCart.Models;
@@ -89,6 +90,14 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "Upload")),
+    RequestPath = "/Upload"
+});
+
 app.UseRouting();
 
 app.UseSwagger();
