@@ -1,0 +1,3 @@
+IF DB_ID('BookDB') IS NULL
+    CREATE DATABASE BookDB;
+GO
