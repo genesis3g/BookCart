@@ -10,5 +10,11 @@
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
+  },
+  "/swagger": {
+    "target": "https://localhost:7073",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 }
