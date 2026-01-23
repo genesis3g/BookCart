@@ -29,7 +29,11 @@ export class AuthEffects {
       switchMap((action) =>
         combineLatest([
           this.store.select(selectQueryParams),
-          this.authenticationService.login(action.loginCredentials),
+          this.authenticationService.login({
+            // aquí garantizamos que va userName al backend
+            userName: (action.loginCredentials as any).userName ?? (action.loginCredentials as any).username,
+            password: action.loginCredentials.password,
+          }),
         ]).pipe(
           take(1),
           map(([queryParam, response]) => {

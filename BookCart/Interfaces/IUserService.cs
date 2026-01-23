@@ -7,7 +7,8 @@ namespace BookCart.Interfaces
     public interface IUserService
     {
         AuthenticatedUser AuthenticateUser(UserLogin loginCredentials);
-        Task<bool> RegisterUser(UserMaster userData);
+        //Task<bool> RegisterUser(UserMaster userData);
+        Task<bool> RegisterUserAsync(UserMaster userData);
         bool CheckUserNameAvailabity(string userName);
 
         Task<bool> isUserExists(int userId);

@@ -30,7 +30,7 @@ namespace BookCart.DataAccess
             return authenticatedUser;
         }
 
-        public async Task<bool> RegisterUser(UserMaster userData)
+        /*public async Task<bool> RegisterUser(UserMaster userData)
         {
             bool isUserNameAvailable = CheckUserNameAvailabity(userData.Username);
             try
@@ -50,6 +50,20 @@ namespace BookCart.DataAccess
             {
                 throw;
             }
+        }*/
+
+        public async Task<bool> RegisterUserAsync(UserMaster userData)
+        {
+            // Validar username único
+            bool isUserNameAvailable = CheckUserNameAvailabity(userData.Username);
+            if (!isUserNameAvailable)
+                return false;
+
+            // Insertar y guardar
+            await _dbContext.UserMaster.AddAsync(userData);
+            var rows = await _dbContext.SaveChangesAsync();
+
+            return rows > 0;
         }
 
         public bool CheckUserNameAvailabity(string userName)

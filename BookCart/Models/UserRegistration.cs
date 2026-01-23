@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BookCart.Models
 {
@@ -11,6 +12,7 @@ namespace BookCart.Models
         public string LastName { get; set; }
 
         [Required]
+        [JsonPropertyName("userName")]
         public string Username { get; set; }
 
         [Required]
@@ -22,7 +24,7 @@ namespace BookCart.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [RegularExpression("Male|Female")]
+        [RegularExpression("^(Male|Female)$")]
         public string Gender { get; set; }
 
         public UserRegistration()

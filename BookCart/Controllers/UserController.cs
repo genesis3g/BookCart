@@ -39,14 +39,12 @@ namespace BookCart.Controllers
         /// </summary>
         /// <param name="registrationData"></param>
         [HttpPost]
-        public ActionResult Post([FromBody] UserRegistration registrationData)
+        public async Task<ActionResult> Post([FromBody] UserRegistration registrationData)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
+                return BadRequest(ModelState);
 
-            UserMaster user = new()
+            var user = new UserMaster
             {
                 FirstName = registrationData.FirstName,
                 LastName = registrationData.LastName,
@@ -56,9 +54,13 @@ namespace BookCart.Controllers
                 UserTypeId = 2
             };
 
-            _userService.RegisterUser(user);
+            var created = await _userService.RegisterUserAsync(user);
 
-            return Ok();
+            if (!created)
+                return Conflict("Username already exists (or registration failed).");
+
+            // mejor devolver 201 + algo, pero con 200 también podés
+            return Ok(new { user.UserId, user.Username });
         }
     }
 }
