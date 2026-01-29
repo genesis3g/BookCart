@@ -1,5 +1,4 @@
 # playwright_tests/tests/auth/test_register_and_login.py
-from pages.home_page import HomePage
 from pages.register_page import RegisterPage
 from pages.login_page import LoginPage
 from data.users import new_user
