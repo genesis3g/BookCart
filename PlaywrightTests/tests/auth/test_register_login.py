@@ -7,23 +7,24 @@ from data.users import new_user
 def test_register_then_login(page, base_url):
     user = new_user()
 
-    # 1) Abrir home y navegar a register
-    home = HomePage(page, base_url).open()
-    home.header().go_to_register()
+    # 1) Abrir home y navegar a login
+    login_page = LoginPage(page, base_url)
+    login_page.open()
+    login_page.assert_loaded()
 
-    # 2) Registrar
+    # 2) Desde login, navegar a registro
+    login_page.go_to_register()
+
+    # 3) Registrar
     register = RegisterPage(page, base_url)
     register.assert_loaded()
     register.register(user)
-    register.assert_success()  # según impl. del RegisterPage puede validar toast o redirección
+    register.assert_registration_success()
 
-    # 3) Ir a login (header tiene botón Register; asumimos similar para login)
-    home.header().go_to_login()
-
-    # 4) Login
-    login = LoginPage(page, base_url)
-    login.assert_loaded()
-    login.login(user)
+    # 4) Volver a login y loguear
+    login_page.open()
+    login_page.assert_loaded()
+    login_page.login(user)
 
     # 5) Verificar login exitoso
-    login.assert_logged_in()
+    login_page.assert_logged_in()

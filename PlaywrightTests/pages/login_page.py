@@ -4,8 +4,22 @@ from playwright.sync_api import expect, Page
 from .base_page import BasePage
 from data.users import User
 
+
 class LoginPage(BasePage):
     PATH = "/login"
+
+    def go_to_register(self):
+        # Busca un enlace o botón con texto 'Register' y haz click
+        btn = self.page.get_by_role("button", name=re.compile(r"register", re.I))
+        if btn.count() > 0:
+            btn.first.click()
+        else:
+            # Fallback: busca un enlace
+            link = self.page.get_by_role("link", name=re.compile(r"register", re.I))
+            if link.count() > 0:
+                link.first.click()
+            else:
+                raise Exception("No se encontró botón o enlace de registro en la página de login")
 
     def __init__(self, page: Page, base_url: str):
         super().__init__(page, base_url)

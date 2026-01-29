@@ -50,7 +50,8 @@ class RegisterPage:
 
     @property
     def page_title(self):
-        return self.page.get_by_text(re.compile(r"^\s*User Registration\s*$", re.IGNORECASE))
+        # Verifica el título de la página (document.title)
+        return self.page
 
     @property
     def error_messages(self):
@@ -64,7 +65,8 @@ class RegisterPage:
 
     def assert_loaded(self):
         """Verifica que la página de registro esté cargada"""
-        expect(self.page_title).to_be_visible()
+        # Verifica el título de la pestaña
+        expect(self.page).to_have_title(re.compile(r"Register", re.IGNORECASE))
         expect(self.first_name_input).to_be_visible()
         expect(self.last_name_input).to_be_visible()
         expect(self.username_input).to_be_visible()
