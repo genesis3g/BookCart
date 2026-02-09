@@ -1,5 +1,9 @@
 # Generador de usuario único para tests
 import time
+# PlaywrightTests/data/users.py
+from dataclasses import dataclass
+
+
 def limit_length(s, max_length):
     return s[:max_length]
 
@@ -9,8 +13,6 @@ def new_user():
     unique_id = str(int(time.time() * 1000))[-6:]
     username = limit_length(prefix + unique_id, max_username_length)
     return User(username=username, password="TestPass123!")
-# PlaywrightTests/data/users.py
-from dataclasses import dataclass
 
 @dataclass
 class User:
@@ -27,3 +29,7 @@ QUEMOLLE_USER = User(
     username="quemolle",
     password="Qwerty123456",
 )
+
+def existing_user():
+    # Devuelve un usuario existente para los tests
+    return PLAYWRIGHT_USER

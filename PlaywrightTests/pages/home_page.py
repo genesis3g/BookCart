@@ -1,11 +1,11 @@
 from playwright.sync_api import Page
 
 class HomePage:
-	def __init__(self, page: Page, base_url: str):
+	def __init__(self, page: Page, base_url: str = "http://localhost:4200"):
 		self.page = page
 		self.base_url = base_url
 
-	def open(self):
+	def go(self):
 		self.page.goto(self.base_url)
 		return self
 

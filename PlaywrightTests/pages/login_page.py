@@ -5,8 +5,13 @@ from .base_page import BasePage
 from data.users import User
 
 
+
 class LoginPage(BasePage):
     PATH = "/login"
+
+    def go(self):
+        self.goto(self.PATH)
+        return self
 
     def go_to_register(self):
         # Busca un enlace o botón con texto 'Register' y haz click

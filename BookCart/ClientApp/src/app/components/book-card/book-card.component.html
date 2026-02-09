@@ -17,11 +17,11 @@
   </a>
   <mat-card-content>
     @if ((isAuthenticatedUser$ | async)) {
-    <div class="favourite mat-elevation-z8">
+    <div class="favourite mat-elevation-z8" data-testid="add-to-favorites">
       <app-addtowishlist [bookId]="book.bookId"></app-addtowishlist>
     </div>
     }
-    <div class="card-title my-2">
+    <div class="card-title my-2" data-testid="book-title">
       <a [routerLink]="['/books/details/', book.bookId]">
         <strong>{{ book.title }}</strong>
       </a>

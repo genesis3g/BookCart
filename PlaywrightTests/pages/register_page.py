@@ -6,7 +6,12 @@ import re
 from data.users import User
 
 
+
 class RegisterPage:
+    def go(self):
+        self.page.goto(self.url)
+        return self
+
     def __init__(self, page: Page, base_url: str):
         self.page = page
         self.base_url = base_url
