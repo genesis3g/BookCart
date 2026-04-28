@@ -1,6 +1,6 @@
 """
 Core Automation Flow — Demo Final
-Cubre las directrices del proyecto de punta a punta:
+Cubre las directrices del proyecto e2e:
   Home → Register → Login → Home (logged in) → Book Detail → Cart → Checkout → My Orders
 """
 import pytest
