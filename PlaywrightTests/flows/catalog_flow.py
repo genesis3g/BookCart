@@ -22,6 +22,22 @@ class CatalogFlow:
         self.logger.info("✓ Catálogo abierto")
         return self
     
+    def open_book_detail(self) -> "CatalogFlow":
+        """Abre la página de detalle del primer libro visible"""
+        self.logger.info("→ Abriendo detalle de libro")
+        self.home_page.page.locator("app-book-card a").first.click()
+        self.home_page.page.wait_for_url("**/books/details/**")
+        self.home_page.page.wait_for_load_state("networkidle")
+        self.logger.info("✓ Página de detalle abierta")
+        return self
+
+    def add_to_cart_from_detail(self) -> "CatalogFlow":
+        """Agrega el libro actual (detalle) al carrito"""
+        self.logger.info("→ Agregando libro al carrito desde detalle")
+        self.home_page.page.get_by_role("button", name="Add to Cart").first.click()
+        self.logger.info("✓ Libro agregado al carrito desde detalle")
+        return self
+
     def add_random_book_to_cart(self) -> "CatalogFlow":
         """Agrega un libro aleatorio al carrito"""
         self.logger.info("→ Agregando libro aleatorio al carrito")

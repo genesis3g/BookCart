@@ -6,6 +6,8 @@ import pytest
 from flows.auth_flow import AuthFlow
 from flows.catalog_flow import CatalogFlow
 from flows.order_flow import OrderFlow
+from utils.api_client import ApiClient
+from data.test_data_builder import TestDataBuilder
 
 
 @pytest.fixture
@@ -24,6 +26,19 @@ def catalog_flow(page, base_url):
 def order_flow(page, base_url):
     """Fixture para flujo de órdenes"""
     return OrderFlow(page, base_url)
+
+
+@pytest.fixture
+def clean_test_users(base_url):
+    """Limpia carrito y wishlist de los usuarios de prueba vía API antes del test.
+
+    Usar como parámetro en tests que necesiten estado limpio:
+        def test_foo(page, base_url, clean_test_users): ...
+    """
+    client = ApiClient(base_url)
+    for role in ("customer", "customer_quemolle"):
+        user = TestDataBuilder.get_test_user(role)
+        client.clean_user_state(user.username, user.password)
 
 
 @pytest.fixture

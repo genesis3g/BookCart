@@ -74,7 +74,11 @@ class LoginPage(BasePage):
         expect(err.first).to_be_visible()
         return self
 
-    def assert_logged_in(self):
-        # Después de login exitoso, debería estar en / (home)
+    def assert_logged_in(self, username: str = None):
+        # Después de login exitoso, la URL ya no es /login
         expect(self.page).not_to_have_url(re.compile(r"/login", re.I))
+        # Si se pasa username, verifica que aparece en el navbar
+        if username:
+            navbar_user = self.page.locator("mat-toolbar").get_by_text(username)
+            expect(navbar_user).to_be_visible()
         return self

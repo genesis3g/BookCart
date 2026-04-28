@@ -29,10 +29,11 @@ class AuthFlow:
         return self
     
     def login_with_user(self, user: User) -> "AuthFlow":
-        """Realiza login con un usuario específico"""
+        """Realiza login con un usuario específico y verifica el nombre en navbar"""
         self.logger.info(f"→ Iniciando login con usuario: {user.username}")
         self.login_page.open()
         self.login_page.login(user)
+        self.login_page.assert_logged_in(username=user.username)
         self.logger.info(f"✓ Login realizado con {user.username}")
         return self
     
@@ -49,11 +50,16 @@ class AuthFlow:
         """Registra un nuevo usuario"""
         self.logger.info("→ Registrando nuevo usuario")
         user = TestDataBuilder.get_test_user("new")
+        self._last_registered_user = user
         self.register_page.open()
         self.register_page.register(user)
-        self.register_page.assert_registration_successful()
+        self.register_page.assert_registration_success()
         self.logger.info(f"✓ Registro exitoso para usuario: {user.username}")
         return self
+
+    def get_last_registered_user(self) -> User:
+        """Devuelve el último usuario registrado en esta sesión"""
+        return self._last_registered_user
     
     def logout(self) -> "AuthFlow":
         """Cierra la sesión del usuario actual"""

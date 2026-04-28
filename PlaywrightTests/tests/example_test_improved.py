@@ -53,9 +53,11 @@ class TestOrderExample:
     def test_complete_purchase(self, user_with_items_in_cart, order_flow):
         """Test: Completar un pedido"""
         order_flow.complete_purchase(
-            address="123 Test Street",
-            city="Test City",
-            zip_code="12345"
+            name="Test User",
+            address1="123 Test Street",
+            address2="Apt 1",
+            pincode="123456",
+            state="Test State",
         )
 
 
@@ -76,9 +78,11 @@ class TestE2EExample:
         order_flow.go_to_cart()
         order_flow.proceed_to_checkout()
         order_flow.fill_shipping_info(
-            address="456 Main St",
-            city="Anytown",
-            zip_code="54321"
+            name="Test User",
+            address1="456 Main St",
+            address2="Apt 2",
+            pincode="654321",
+            state="Anytown",
         )
         order_flow.fill_payment_info()
         order_flow.place_order()
