@@ -1,7 +1,7 @@
 import pytest
 from utils.api_client import ApiClient
 
-BASE_URL = "https://localhost:7073"
+API_BASE_URL = "https://localhost:7073"  # .NET backend, used by ApiClient only
 
 
 @pytest.fixture(scope="session")
@@ -11,7 +11,7 @@ def browser_context_args(browser_context_args: dict) -> dict:
 
 @pytest.fixture(scope="session")
 def api() -> ApiClient:
-    return ApiClient(BASE_URL)
+    return ApiClient(API_BASE_URL)
 
 
 @pytest.fixture
@@ -21,4 +21,5 @@ def logged_in_page(page, api):
     from data.users import PLAYWRIGHT_USER
 
     LoginPage(page).login(PLAYWRIGHT_USER["username"], PLAYWRIGHT_USER["password"])
+    page.wait_for_url("**/")
     return page

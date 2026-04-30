@@ -12,7 +12,7 @@ dependencies = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v --tb=short --base-url https://localhost:7073"
+addopts = "-v --tb=short --base-url http://localhost:4200"
 markers = [
     "auth: authentication tests (login, register)",
     "catalog: catalog browsing and book discovery tests",
