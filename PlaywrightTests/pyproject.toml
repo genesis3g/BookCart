@@ -1,0 +1,24 @@
+[project]
+name = "bookcart-playwright-tests"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "playwright>=1.44",
+    "pytest>=8.0",
+    "pytest-playwright>=0.5",
+    "requests>=2.31",
+    "python-dotenv>=1.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short --base-url https://localhost:7073"
+markers = [
+    "auth: authentication tests (login, register)",
+    "catalog: catalog browsing and book discovery tests",
+    "cart: shopping cart tests",
+    "wishlist: wishlist management tests",
+    "orders: order history tests",
+    "e2e: end-to-end user journey tests",
+    "smoke: critical path smoke tests",
+]
